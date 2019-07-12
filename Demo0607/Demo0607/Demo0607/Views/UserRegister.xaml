@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Demo0607.Views.UserRegister">
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="50" VerticalOptions="Center">
+            <Label Text="W  Reg!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Button Text="Register" TextColor="White" BackgroundColor="#ff77D065" Clicked="Click_Register"/>
+            <Button Text="Cancel" TextColor="White" BackgroundColor="#ff77D065" Clicked="Click_Cancel"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Demo0607.Views.ItemDetailPage"
+             Title="{Binding Title}">
+    <ScrollView>
+        <StackLayout Spacing="20" Padding="15">
+            <Image Source="{Binding Item.Image}"/>
+            <Label Text="ID:" FontSize="Medium" />
+            <Label Text="{Binding Item.Id}" FontSize="Small"/>
+            <Label Text="Name:" FontSize="Medium" />
+            <Label Text="{Binding Item.Name}" FontSize="Small"/>
+            <Label Text="Age:" FontSize="Medium" />
+            <Label Text="{Binding Item.Age}" FontSize="Small"/>
+            <Label Text="Pieces:" FontSize="Medium" />
+            <Label Text="{Binding Item.Pieces}" FontSize="Small"/>
+            <Label Text="Description:" FontSize="Medium" />
+            <Label Text="{Binding Item.Description}" FontSize="Small"/>
+            <Button x:Name="BtnEdit" Text="Edit" TextColor="White" BackgroundColor="#ff77D065" IsVisible="{Binding IsAdmin}" Clicked="Button_Clicked"></Button>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
