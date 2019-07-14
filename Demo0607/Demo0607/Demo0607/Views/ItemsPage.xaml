@@ -15,31 +15,16 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
-            <ScrollView>
-            <StackLayout
-                x:Name="RootLayout"
-                Orientation="Horizontal"
-                HorizontalOptions="FillAndExpand">
+            <ScrollView
+                    x:Name="RootLayout"
+                    HorizontalOptions="FillAndExpand">
                 <!--<StackLayout
-                    x:Name="StackLeft"
-                    Orientation="Vertical">
-
-                </StackLayout>
-                <StackLayout
-                    x:Name="StackRight"
-                    Orientation="Vertical">
-
+                    x:Name="RootLayout"
+                    Orientation="Horizontal"
+                    HorizontalOptions="FillAndExpand">
                 </StackLayout>-->
-                <!--<RelativeLayout
-                    >
-                    <ImageButton x:Name="image01"
-                                 HeightRequest="130dp"
-                                 Source="sp01.jpg"
-                                 
-                </RelativeLayout>-->
-            </StackLayout>
             </ScrollView>
-            <ListView x:Name="ItemsListView" 
+            <!--<ListView x:Name="ItemsListView" 
                 ItemsSource="{Binding ToyListing, Mode=TwoWay}"
                 VerticalOptions="FillAndExpand"
                 HasUnevenRows="true"
@@ -104,7 +89,7 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
+            </ListView>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
