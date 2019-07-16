@@ -10,13 +10,29 @@ using Xamarin.Forms.Xaml;
 using Demo0607.Models;
 using Demo0607.Views;
 using Demo0607.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace Demo0607.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ItemsPage : ContentPage
-	{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ItemsPage : ContentPage
+    {
         ItemsViewModel viewModel;
+        int _index = 0;
+        int _interval = 8;
+
+
+        static Button LoadMoreBtn = new Button
+        {
+            Text = "Load More...",
+            BackgroundColor = Color.Pink
+        };
+
+        static Button AddBtn = new Button
+        {
+            Text = "Add...",
+            BackgroundColor = Color.Pink
+        };
 
         public ItemsPage()
         {
@@ -24,86 +40,44 @@ namespace Demo0607.Views
 
             BindingContext = viewModel = new ItemsViewModel();
 
+            LoadMoreBtn.Clicked += LoadMoreBtn_Clicked;
+            AddBtn.Clicked += AddItem_Clicked;
+
             double _width = 160;
             double _smallheight = 60;
             double _bigheight = 130;
-
-            var grid0 = new Grid { ColumnSpacing = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
-            grid0.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            grid0.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-
-            var grid1 = new Grid
-            {
-                ColumnSpacing = 0,
-                RowSpacing = 0
-            };
-            var grid2 = new Grid
-            {
-                ColumnSpacing = 0,
-                RowSpacing = 0
-            };
-
-            AddItemLayout(grid1, "sp01.jpg", "test0001", "descsc", "", 0, 0);
-            AddItemLayout(grid1, "sp03.jpg", "test0003333", "dedededsc", "dedededsc", 2, 3);
-
-            grid2.RowDefinitions.Add(new RowDefinition { Height = new GridLength(_smallheight) });
-            //grid2.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
-
-            var imageButton = new ImageButton
-            {
-                Source = "asd",
-                BackgroundColor = Color.Pink
-            };
-            grid2.Children.Add (imageButton, 0, 0);
-            
-            AddItemLayout(grid2, "sp02.jpg", "test002222", "qqqqqqc", "", 1, 1);
-            
-            grid0.Children.Add (grid1, 0, 0);
-            grid0.Children.Add (grid2, 1, 0);
-            //RootLayout.Children.Add (grid0);
-            RootLayout.Content = grid0;
-
         }
 
-        private void AddItemLayout(Grid grid1, string v1, string v2, string v3, string v4, int index, int column)
+        private void LoadMoreBtn_Clicked(object sender, EventArgs e)
         {
-            grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(130) });
-            //grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Auto) });
-            grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
-            grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+            DisplayAlert("Btn", "Load more ...", "Cancel");
+        }
 
+        private void InitPageUI()
+        {
+            _index = 0;
 
-            var image1 = new Image { Source = v1, Aspect = Aspect.AspectFill };
-            var image2 = new Image { Source = "triangle2.png", HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.End, Margin = new Thickness(30, 0, 0, 0), WidthRequest = 24, HeightRequest = 12 };
-            var entry1 = new Label { Text = v2, FontSize = 17, FontAttributes = FontAttributes.Bold, Margin = new Thickness(10, 8, 0, 0) };
-            var entry2 = new Label { Text = v3, FontSize = 13, Margin = new Thickness(10, 6, 0, 0) };
-            grid1.Children.Add(image1, 0, column);
-            grid1.Children.Add(image2, 0, column);
-            grid1.Children.Add(entry1, 0, column + 1);
-            grid1.Children.Add(entry2, 0, column + 2);
-
-            #region click grsture area
-            var clickable = new ContentView
+            var GridLeft = new Grid
             {
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.FillAndExpand,
-                Opacity = 0.6
+                ColumnSpacing = 0,
+                RowSpacing = 0,
+                BackgroundColor = Color.Azure
             };
 
-            var tap = new TapGestureRecognizer();
-            tap.Tapped += async (object sender, EventArgs e) => {
-                var view = (ContentView)sender;
-                view.BackgroundColor = Color.Azure;
-                await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(viewModel.ToyListing[index])));
-                view.BackgroundColor = Color.Transparent;
+            var GridRight = new Grid
+            {
+                ColumnSpacing = 0,
+                RowSpacing = 0,
+                BackgroundColor = Color.Azure
             };
-            clickable.GestureRecognizers.Add(tap);
 
-            grid1.Children.Add(clickable, 0, column);
+            //add first button on the right
+            GridRight.RowDefinitions.Add(new RowDefinition { Height = new GridLength(60) });
+            GridRight.Children.Add(AddBtn, 0, 0);
 
-            Grid.SetRowSpan(clickable, 3);
-            #endregion
-
+            GridRoot.Children.Clear();
+            GridRoot.Children.Add(GridLeft, 0, 0);
+            GridRoot.Children.Add(GridRight, 1, 0);
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -127,8 +101,99 @@ namespace Demo0607.Views
         {
             base.OnAppearing();
 
+            //1. fetch data
             //if (viewModel.ToyListing.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
+            viewModel.LoadItemsCommand.Execute(null);
+
+            //2. initialise UI
+            InitPageUI();
+
+            //3. add elements into grid
+            AddListingToPage(viewModel.ToyListing);
+
+        }
+
+        private void AddListingToPage(ObservableCollection<Toy> toyListing)
+        {
+            foreach (var toy in toyListing)
+            {
+                AddItemLayout(toy, _index);
+                if (_index == toyListing.Count - 1)
+                {
+                    //add bottome button when listing complete
+                    Grid _gridLeft = (Grid)GridRoot.Children.ElementAt(0);
+                    _gridLeft.RowDefinitions.Add(new RowDefinition { Height = new GridLength(60) });
+                    _gridLeft.Children.Add(LoadMoreBtn, 0, _index / 2 * 3 + 3);
+                    return;
+                }
+                _index++;
+            }
+        }
+
+        private void AddItemLayout(Toy SelectedToy, int index)
+        {
+            int _baseIndex = index / 2;
+            var _flagRight = Convert.ToBoolean(index % 2);
+
+            var _grid = (Grid)(_flagRight ? GridRoot.Children.ElementAt(1) : GridRoot.Children.ElementAt(0));
+            var _rowIndex = _flagRight ? _baseIndex * 3 + 1 : _baseIndex * 3;
+
+            _grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(130) });
+            _grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+            _grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
+
+            #region Label background
+            var _LabelBackgroundView = new ContentView
+            {
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                Opacity = 0.6,
+                BackgroundColor = Color.LightGoldenrodYellow
+            };
+
+            _grid.Children.Add(_LabelBackgroundView, 0, _rowIndex + 1);
+            Grid.SetRowSpan(_LabelBackgroundView, 2);
+            #endregion
+
+            var image1 = new Image { Source = SelectedToy.Image, Aspect = Aspect.AspectFill };
+            var image2 = new Image { Source = "triangle2.png", HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.End, Margin = new Thickness(30, 0, 0, 0), WidthRequest = 24, HeightRequest = 12 };
+            var entry1 = new Label {
+                Text = SelectedToy.Name,
+                FontSize = 17,
+                FontAttributes = FontAttributes.Bold,
+                Margin = new Thickness(10, 8, 0, 0)
+            };
+            var entry2 = new Label {
+                Text = "Pc: " + SelectedToy.Pieces + "        Age: " + SelectedToy.Age,
+                FontSize = 13,
+                Margin = new Thickness(10, 6, 0, 0)
+            };
+            _grid.Children.Add(image1, 0, _rowIndex);
+            _grid.Children.Add(image2, 0, _rowIndex);
+            _grid.Children.Add(entry1, 0, _rowIndex + 1);
+            _grid.Children.Add(entry2, 0, _rowIndex + 2);
+
+            #region click grsture area
+            var clickable = new ContentView
+            {
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
+                Opacity = 0.6
+            };
+
+            var tap = new TapGestureRecognizer();
+            tap.Tapped += async (object sender, EventArgs e) =>
+            {
+                var view = (ContentView)sender;
+                view.BackgroundColor = Color.Azure;
+                await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(viewModel.ToyListing[index])));
+                view.BackgroundColor = Color.Transparent;
+            };
+            clickable.GestureRecognizers.Add(tap);
+
+            _grid.Children.Add(clickable, 0, _rowIndex);
+            Grid.SetRowSpan(clickable, 3);
+            #endregion
         }
     }
 }

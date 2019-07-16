@@ -14,82 +14,29 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <ScrollView
-                    x:Name="RootLayout"
-                    HorizontalOptions="FillAndExpand">
-                <!--<StackLayout
-                    x:Name="RootLayout"
-                    Orientation="Horizontal"
-                    HorizontalOptions="FillAndExpand">
-                </StackLayout>-->
-            </ScrollView>
-            <!--<ListView x:Name="ItemsListView" 
-                ItemsSource="{Binding ToyListing, Mode=TwoWay}"
-                VerticalOptions="FillAndExpand"
-                HasUnevenRows="true"
-                RefreshCommand="{Binding LoadItemsCommand}"
-                IsPullToRefreshEnabled="true"
-                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                CachingStrategy="RecycleElement"
-                ItemSelected="OnItemSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid Padding="10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="20"/>
-                                    <RowDefinition Height="18"/>
-                                    <RowDefinition Height="18"/>
-                                </Grid.RowDefinitions>
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Label Text="{Binding Id}" 
-                                       Grid.Row="0"
-                                       Grid.Column="1"
-                                       WidthRequest="80"
-                                   LineBreakMode="NoWrap" 
-                                   Style="{DynamicResource ListItemTextStyle}" 
-                                   FontSize="16" />
-                                <Label Text="{Binding Name}" 
-                                       Grid.Row="0"
-                                       Grid.Column="2"
-                                   LineBreakMode="NoWrap" 
-                                   Style="{DynamicResource ListItemTextStyle}" 
-                                   FontSize="16" />
-                                <Label Text="{Binding Description}" 
-                                       Grid.Row="2"
-                                       Grid.Column="1"
-                                       Grid.ColumnSpan="2"
-                                   LineBreakMode="NoWrap"
-                                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                   FontSize="13" />
-                                <Label Text="{Binding Age, StringFormat='Age: {0}'}" 
-                                       Grid.Row="1"
-                                       Grid.Column="2"
-                                   LineBreakMode="NoWrap"
-                                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                   FontSize="13" />
-                                <Label Text="{Binding Pieces, StringFormat='Pieces: {0}'}" 
-                                       Grid.Row="1"
-                                       Grid.Column="1"
-                                   LineBreakMode="NoWrap"
-                                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                   FontSize="13" />
-                                <Image Source="{Binding Image}"
-                                       Grid.Row="0"
-                                       Grid.Column="0"
-                                       Grid.RowSpan="3" />
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
-        </StackLayout>
+        <ScrollView
+            HorizontalOptions="FillAndExpand">
+            <Grid
+                x:Name="GridRoot"
+                ColumnSpacing ="0"
+                HorizontalOptions="FillAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid
+                    x:Name="GridLeft"
+                    Grid.Column="0"
+                    ColumnSpacing ="0"
+                    RowSpacing ="0">
+                </Grid>
+                <Grid
+                    x:Name="GridRight"
+                    Grid.Column="1"
+                    ColumnSpacing ="0"
+                    RowSpacing ="0">
+                </Grid>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
