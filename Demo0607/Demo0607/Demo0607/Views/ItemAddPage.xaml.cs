@@ -28,7 +28,7 @@ namespace Demo0607.Views
 
         async void Save_Clicked(object sender, EventArgs e)
         {
-            MessagingCenter.Send(this, "UpdateItem", Item);
+            MessagingCenter.Send(this, "AddItem", Item);
             await Navigation.PopModalAsync();
         }
     }

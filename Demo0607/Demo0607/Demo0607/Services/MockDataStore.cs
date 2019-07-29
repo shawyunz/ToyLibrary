@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Demo0607.Models;
+using Firebase.Database;
+using Firebase.Database.Query;
 
 [assembly: Xamarin.Forms.Dependency(typeof(Demo0607.Services.MockDataStore))]
 namespace Demo0607.Services
@@ -11,6 +13,8 @@ namespace Demo0607.Services
     public class MockDataStore : IDataStore<Toy>
     {
         List<Toy> items;
+        FirebaseClient firebase = new FirebaseClient("https://xamarinlibrary-a2d6a.firebaseio.com/");
+
 
         public MockDataStore()
         {
@@ -33,7 +37,14 @@ namespace Demo0607.Services
 
         public async Task<bool> AddItemAsync(Toy item)
         {
-            items.Add(item);
+            //items.Add(item);
+
+            //return await Task.FromResult(true);
+
+
+            await firebase
+              .Child("Toy")
+              .PostAsync(item);
 
             return await Task.FromResult(true);
         }
@@ -61,11 +72,29 @@ namespace Demo0607.Services
         public async Task<Toy> GetItemAsync(string id)
         {
             return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+
+
         }
 
         public async Task<IEnumerable<Toy>> GetItemsAsync(bool forceRefresh = false)
         {
-            return await Task.FromResult(items);
+            //return await Task.FromResult(items);
+
+
+
+            return (await firebase
+              .Child("Toy")
+              .OnceAsync<Toy>()).Select(item => new Toy
+              {
+                  Id = item.Object.Id,
+                  Name = item.Object.Name,
+                  Description = item.Object.Description,
+                  Age = item.Object.Age,
+                  Pieces = item.Object.Pieces,
+                  Image = item.Object.Image,
+                  State = item.Object.State
+              }).ToList();
+
         }
     }
 }

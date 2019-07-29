@@ -19,6 +19,11 @@ namespace Demo0607.Droid
 
             base.OnCreate(bundle);
 
+            // This MobileServiceClient has been configured to communicate with the Azure Mobile App and
+            // Azure Gateway using the application url. You're all set to start working with your Mobile App!
+            Microsoft.WindowsAzure.MobileServices.MobileServiceClient ToyLibraryCarlsonClient = new Microsoft.WindowsAzure.MobileServices.MobileServiceClient(
+            "https://toylibrarycarlson.azurewebsites.net");
+
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
         }

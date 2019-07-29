@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "382159587897",
+    "firebase_url": "https://xamarinlibrary-a2d6a.firebaseio.com",
+    "project_id": "xamarinlibrary-a2d6a",
+    "storage_bucket": "xamarinlibrary-a2d6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382159587897:android:c33d56309c3c8ba0",
+        "android_client_info": {
+          "package_name": "com.ais.DemoXamarin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "382159587897-p5q0i94r61lhlmd2oraf3kkdffn6v9ek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkQecAozk3lBdbIZuJo-dvSIpG9L_JGtw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "382159587897-p5q0i94r61lhlmd2oraf3kkdffn6v9ek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 ﻿using Demo0607.Models;
+using Demo0607.Services;
 using System;
 using System.Windows.Input;
 
@@ -9,6 +10,7 @@ namespace Demo0607.ViewModels
     public class UserViewModel : BaseViewModel
     {
         User user = new User();
+        CloudDBHelper dehelper = new CloudDBHelper();
         public User User
         {
             get { return user; }
@@ -26,6 +28,9 @@ namespace Demo0607.ViewModels
 
         public void OnLogin()
         {
+            //test
+            //if password = dbhelper.getUser(id).password
+
             if (User.user_id < 1)
             {
                 MessagingCenter.Send(this, "LoginAlert", User);

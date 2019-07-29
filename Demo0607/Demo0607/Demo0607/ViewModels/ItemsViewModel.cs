@@ -56,6 +56,7 @@ namespace Demo0607.ViewModels
                 {
                     ToyListing.Add(item);
                 }
+                MessagingCenter.Send(this, "AddList", ToyListing);
             }
             catch (Exception ex)
             {

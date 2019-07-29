@@ -43,6 +43,15 @@ namespace Demo0607.Views
             LoadMoreBtn.Clicked += LoadMoreBtn_Clicked;
             AddBtn.Clicked += AddItem_Clicked;
 
+
+            MessagingCenter.Subscribe<ItemsViewModel, ObservableCollection<Toy>>(this, "AddList", async (obj, items) =>
+            {
+
+                AddListingToPage(items);
+                
+            });
+
+
             double _width = 160;
             double _smallheight = 60;
             double _bigheight = 130;
@@ -104,12 +113,12 @@ namespace Demo0607.Views
             //1. fetch data
             //if (viewModel.ToyListing.Count == 0)
             viewModel.LoadItemsCommand.Execute(null);
-
+            
             //2. initialise UI
             InitPageUI();
 
             //3. add elements into grid
-            AddListingToPage(viewModel.ToyListing);
+            //AddListingToPage(viewModel.ToyListing);
 
         }
 
@@ -156,7 +165,7 @@ namespace Demo0607.Views
             #endregion
 
             var image1 = new Image { Source = SelectedToy.Image, Aspect = Aspect.AspectFill };
-            var image2 = new Image { Source = "triangle2.png", HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.End, Margin = new Thickness(30, 0, 0, 0), WidthRequest = 24, HeightRequest = 12 };
+            var image2 = new Image { Source = "triangle3.png", HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.End, Margin = new Thickness(30, 0, 0, 0), WidthRequest = 24, HeightRequest = 12 };
             var entry1 = new Label {
                 Text = SelectedToy.Name,
                 FontSize = 17,
