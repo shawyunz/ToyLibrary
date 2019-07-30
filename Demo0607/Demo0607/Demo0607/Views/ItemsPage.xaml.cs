@@ -25,13 +25,15 @@ namespace Demo0607.Views
         static Button LoadMoreBtn = new Button
         {
             Text = "Load More...",
-            BackgroundColor = Color.Pink
+            //BackgroundColor = Color.FromRgb(252, 179, 78)
+                BackgroundColor = Color.FromHex("#ff77D065")
         };
 
         static Button AddBtn = new Button
         {
             Text = "Add...",
-            BackgroundColor = Color.Pink
+            //BackgroundColor = Color.FromRgb(252, 179, 78)
+                BackgroundColor = Color.FromHex("#ff77D065")
         };
 
         public ItemsPage()
@@ -52,9 +54,9 @@ namespace Demo0607.Views
             });
 
 
-            double _width = 160;
-            double _smallheight = 60;
-            double _bigheight = 130;
+            //double _width = 160;
+            //double _smallheight = 60;
+            //double _bigheight = 130;
         }
 
         private void LoadMoreBtn_Clicked(object sender, EventArgs e)
@@ -156,8 +158,8 @@ namespace Demo0607.Views
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
-                Opacity = 0.6,
-                BackgroundColor = Color.LightGoldenrodYellow
+                Opacity = 0.8,
+                BackgroundColor = Color.FromRgb(48, 164, 220)
             };
 
             _grid.Children.Add(_LabelBackgroundView, 0, _rowIndex + 1);
@@ -165,7 +167,7 @@ namespace Demo0607.Views
             #endregion
 
             var image1 = new Image { Source = SelectedToy.Image, Aspect = Aspect.AspectFill };
-            var image2 = new Image { Source = "triangle3.png", HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.End, Margin = new Thickness(30, 0, 0, 0), WidthRequest = 24, HeightRequest = 12 };
+            var image2 = new Image { Source = "triangle3.png", Opacity = 0.6, HorizontalOptions = LayoutOptions.Start, VerticalOptions = LayoutOptions.End, Margin = new Thickness(30, 0, 0, 0), WidthRequest = 24, HeightRequest = 12 };
             var entry1 = new Label {
                 Text = SelectedToy.Name,
                 FontSize = 17,

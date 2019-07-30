@@ -29,6 +29,12 @@ namespace Demo0607.ViewModels
                 await DataStore.AddItemAsync(_item);
             });
 
+            MessagingCenter.Subscribe<ItemAddPage, Toy>(this, "DeleteItem", async (obj, item) =>
+            {
+                await DataStore.DeleteItemAsync(item.Id);
+            });
+
+
             MessagingCenter.Subscribe<ItemEditPage, Toy>(this, "UpdateItem", async (obj, item) =>
             {
                 var _newitem = item as Toy;

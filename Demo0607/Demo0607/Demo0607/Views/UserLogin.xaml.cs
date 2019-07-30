@@ -22,14 +22,31 @@ namespace Demo0607.Views
 
             BindingContext = viewModel = new UserViewModel();
 
+            InitLoginPage();
+
+        }
+        public UserLogin(UserViewModel vm)
+        {
+            InitializeComponent();
+
+            BindingContext = viewModel = vm;
+
+            InitLoginPage();
+        }
+
+        void InitLoginPage()
+        {
             #region message
-            MessagingCenter.Subscribe<UserViewModel, User>(this, "LoginAlert", (sender, user) =>
+            MessagingCenter.Subscribe<UserViewModel, User>(this, "LoginAlert", async (sender, user) =>
             {
-                DisplayAlert("Title", user.user_id + "", "okkk");
+                await DisplayAlert("Login", "Login failed, please try again!", "OK");
+                //Navigation.InsertPageBefore(new UserProfile(viewModel), this);
+                //await Navigation.PopAsync();
             });
 
             MessagingCenter.Subscribe<UserViewModel>(this, "LoginSucc", async (sender) =>
             {
+                await DisplayAlert("Login", "Welcome to Toy Library, " + viewModel.User.last_name + "!!", "OK");
                 await Navigation.PopAsync();
             });
             #endregion

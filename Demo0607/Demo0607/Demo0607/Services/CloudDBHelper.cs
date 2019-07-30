@@ -27,12 +27,11 @@ namespace Demo0607.Services
               }).ToList();
         }
 
-        public async Task AddPerson(int personId, string name)
+        public async Task AddPerson(int personId, string email, string fname, string lname, string pwd)
         {
-
             await firebase
               .Child("User")
-              .PostAsync(null);
+              .PostAsync(new User() { user_id = personId, email = email, first_name = fname, last_name = lname, password = pwd });
         }
 
         public async Task<User> GetPerson(int personId)

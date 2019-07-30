@@ -37,11 +37,6 @@ namespace Demo0607.Services
 
         public async Task<bool> AddItemAsync(Toy item)
         {
-            //items.Add(item);
-
-            //return await Task.FromResult(true);
-
-
             await firebase
               .Child("Toy")
               .PostAsync(item);
@@ -51,12 +46,21 @@ namespace Demo0607.Services
 
         public async Task<bool> UpdateItemAsync(Toy item)
         {
-            var _item = items.Where((Toy arg) => arg.Id == item.Id).FirstOrDefault();
-            var _index = items.IndexOf(_item);
-            items.Remove(_item);
-            items.Insert(_index, item);
+            //var _item = items.Where((Toy arg) => arg.Id == item.Id).FirstOrDefault();
+            //var _index = items.IndexOf(_item);
             //items.Remove(_item);
-            //items.Add(item);
+            //items.Insert(_index, item);
+            ////items.Remove(_item);
+            ////items.Add(item);
+            
+            var toUpdateToy = (await firebase
+              .Child("Toy")
+              .OnceAsync<Toy>()).Where(a => a.Object.Id == item.Id).FirstOrDefault();
+
+            await firebase
+              .Child("Toy")
+              .Child(toUpdateToy.Key)
+              .PutAsync(item);
 
             return await Task.FromResult(true);
         }

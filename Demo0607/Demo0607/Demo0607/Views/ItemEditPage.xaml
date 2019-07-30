@@ -19,6 +19,7 @@
             <Entry Text="{Binding Item.Pieces}" FontSize="Small"/>
             <Label Text="Description:" FontSize="Medium" />
             <Editor Text="{Binding Item.Description}" FontSize="Small" Margin="0" />
+            <Button Text="Delete" TextColor="White" BackgroundColor="#fcb34e" Clicked="Click_Delete"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

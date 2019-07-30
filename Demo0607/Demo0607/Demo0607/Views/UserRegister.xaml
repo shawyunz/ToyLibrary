@@ -3,12 +3,28 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Demo0607.Views.UserRegister">
     <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="50" VerticalOptions="Center">
-            <Label Text="W  Reg!"
+        <ScrollView>
+            <StackLayout Spacing="20" Padding="15" VerticalOptions="Center">
+                <Label Text="Warm welcome for joinning!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Button Text="Register" TextColor="White" BackgroundColor="#ff77D065" Clicked="Click_Register"/>
-            <Button Text="Cancel" TextColor="White" BackgroundColor="#ff77D065" Clicked="Click_Cancel"/>
-        </StackLayout>
+
+                <Label Text="ID:" FontSize="Medium" />
+                <Entry Text="{Binding User.user_id}" FontSize="Small" x:Name="txtid"/>
+                <Label Text="Email:" FontSize="Medium" />
+                <Entry Text="{Binding User.email}" FontSize="Small" x:Name="txtemail"/>
+                <Label Text="First Name:" FontSize="Medium" />
+                <Entry Text="{Binding User.first_name}" FontSize="Small" x:Name="txtfname"/>
+                <Label Text="Last Name:" FontSize="Medium" />
+                <Entry Text="{Binding User.last_name}" FontSize="Small" x:Name="txtlname"/>
+                <Label Text="Password:" FontSize="Medium" />
+                <Entry Text="{Binding User.password}" FontSize="Small" IsPassword="True" x:Name="txtpwd"/>
+                <Label Text="Confirmed Password:" FontSize="Medium" />
+                <Entry FontSize="Small" x:Name="txtpwd2" IsPassword="True"/>
+
+                <Button Text="Register" TextColor="White" BackgroundColor="#ff77D065" Clicked="Click_Register"/>
+                <Button Text="Cancel" TextColor="White" BackgroundColor="#ff77D065" Clicked="Click_Cancel"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

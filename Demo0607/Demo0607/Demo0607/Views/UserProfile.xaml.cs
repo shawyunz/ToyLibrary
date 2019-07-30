@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Demo0607.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,16 +12,23 @@ namespace Demo0607.Views
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class UserProfile : ContentPage
-	{
-		public UserProfile ()
-		{
-			InitializeComponent ();
-        }
-        private void Button_Clicked(object sender, EventArgs e)
+    {
+        public UserViewModel viewModel;
+
+        public UserProfile()
         {
-            //Application.MainPage = null;
+            InitializeComponent();
+
+            BindingContext = viewModel = new UserViewModel();
         }
 
+        public UserProfile (UserViewModel vm)
+		{
+			InitializeComponent ();
+
+            BindingContext = viewModel = vm;
+        }
+        
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -32,7 +40,8 @@ namespace Demo0607.Views
 
         async void Click_Logout(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new UserLogin());
+            viewModel.User = null;
+            await Navigation.PushAsync(new UserLogin(viewModel));
         }
         async void Click_About(object sender, EventArgs e)
         {

@@ -5,7 +5,7 @@
     <ContentPage.Content>
         <StackLayout Spacing="20" Padding="50" VerticalOptions="Center">
             <Entry x:Name="entry_uid" Placeholder="Mail id" Text="{Binding User.user_id}"></Entry>
-            <Entry x:Name="entry_pwd" Placeholder="Password" IsPassword="True"></Entry>
+            <Entry x:Name="entry_pwd" Placeholder="Password" Text="{Binding User.password}" IsPassword="True"></Entry>
             <Button Text="Log In" TextColor="White" BackgroundColor="#ff77D065"
                     Command="{Binding CmdLogin}"
                     />

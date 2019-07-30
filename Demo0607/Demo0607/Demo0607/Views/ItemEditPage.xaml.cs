@@ -25,5 +25,10 @@ namespace Demo0607.Views
             MessagingCenter.Send(this, "UpdateItem", viewModel.Item);
             await Navigation.PopAsync();
         }
+        async void Click_Delete(object sender, EventArgs e)
+        {
+            MessagingCenter.Send(this, "DeleteItem", viewModel.Item);
+            await Navigation.PopAsync();
+        }
     }
 }
